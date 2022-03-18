@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 
 export default function Register() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { register } = useContext(UserProfileContext);
 
   const [firstName, setFirstName] = useState();
@@ -22,7 +22,7 @@ export default function Register() {
     } else {
       const userProfile = { firstName, lastName, displayName, imageLocation, email };
       register(userProfile, password)
-        .then(() => history.push("/"));
+        .then(() => navigate("/"));
     }
  };
 

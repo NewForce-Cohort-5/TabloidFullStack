@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
-import { UserProfileContext } from "../providers/UserProfileProvider";
+import { Route, Routes } from "react-router-dom";
+import { UserProfileContext, UserProfileProvider } from "../providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
@@ -9,20 +9,19 @@ export default function ApplicationViews() {
   const { isLoggedIn } = useContext(UserProfileContext);
 
   return (
-    <main>
-      <Switch>
-        <Route path="/" exact>
+    <UserProfileProvider>
+      <Routes>
+        <Route path="/" element= {<Hello />} />
           {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
-        </Route>
+       
 
-        <Route path="/login">
-          <Login />
-        </Route>
+        <Route path="/login" element= {<Login />}  />
+       
+    
 
-        <Route path="/register">
-          <Register />
-        </Route>
-      </Switch>
-    </main>
+        <Route path="/register" element= {<Register />}  />
+          
+      </Routes>
+    </UserProfileProvider>
   );
 };
