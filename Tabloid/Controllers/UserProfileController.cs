@@ -9,16 +9,24 @@ namespace Tabloid.Controllers
     [ApiController]
     public class UserProfileController : ControllerBase
     {
-        private readonly IUserProfileRepository _userProfileRepository;
-        public UserProfileController(IUserProfileRepository userProfileRepository)
+        //private readonly IUserProfileRepository _userProfileRepository;
+        private readonly IUserRepository _userRepository;
+        public UserProfileController( IUserRepository userRepository)
         {
-            _userProfileRepository = userProfileRepository;
+            //_userProfileRepository = userProfileRepository;
+            _userRepository = userRepository;
         }
 
-        [HttpGet("{firebaseUserId}")]
-        public IActionResult GetUserProfile(string firebaseUserId)
+        [HttpGet("GetByEmail")]
+        public IActionResult GetByEmail(string email)
         {
-            return Ok(_userProfileRepository.GetByFirebaseUserId(firebaseUserId));
+            var user = _userRepository.GetByEmail(email);
+
+                if (email == null || user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
         }
 
         [HttpPost]
@@ -26,10 +34,10 @@ namespace Tabloid.Controllers
         {
             userProfile.CreateDateTime = DateTime.Now;
             userProfile.UserTypeId = UserType.AUTHOR_ID;
-            _userProfileRepository.Add(userProfile);
+            _userRepository.Add(userProfile);
             return CreatedAtAction(
-                nameof(GetUserProfile),
-                new { firebaseUserId = userProfile.FirebaseUserId },
+                "GetByEmail",
+                new { email = userProfile.Email },
                 userProfile);
         }
     }
