@@ -28,7 +28,7 @@ CREATE TABLE [UserType] (
 
 CREATE TABLE [UserProfile] (
   [Id] integer PRIMARY KEY IDENTITY,
-  [FirebaseUserId] NVARCHAR(28) NOT NULL,
+  -- [FirebaseUserId] NVARCHAR(28) NOT NULL,
   [DisplayName] nvarchar(50) NOT NULL,
   [FirstName] nvarchar(50) NOT NULL,
   [LastName] nvarchar(50) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE [UserProfile] (
   [UserTypeId] integer NOT NULL,
 
   CONSTRAINT [FK_User_UserType] FOREIGN KEY ([UserTypeId]) REFERENCES [UserType] ([Id]),
-  CONSTRAINT UQ_FirebaseUserId UNIQUE(FirebaseUserId)
+  -- CONSTRAINT UQ_FirebaseUserId UNIQUE(FirebaseUserId)
 )
 
 CREATE TABLE [Subscription] (
@@ -96,7 +96,7 @@ CREATE TABLE [PostTag] (
   [id] integer PRIMARY KEY IDENTITY,
   [PostId] integer NOT NULL,
   [TagId] integer NOT NULL,
-  
+
   CONSTRAINT [FK_PostTag_Post] FOREIGN KEY ([PostId]) REFERENCES [Post] ([Id]),
   CONSTRAINT [FK_PostTag_Tag] FOREIGN KEY ([TagId]) REFERENCES [Tag] ([Id])
 )
