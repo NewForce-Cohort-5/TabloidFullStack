@@ -1,7 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
 import { Spinner } from "reactstrap";
-import * as firebase from "firebase/app";
-import "firebase/auth";
+
 
 export const UserProfileContext = createContext();
 
@@ -12,19 +11,19 @@ export function UserProfileProvider(props) {
   const userProfile = sessionStorage.getItem("userProfile");
   const [isLoggedIn, setIsLoggedIn] = useState(userProfile != null);
 
-  // const [isFirebaseReady, setIsFirebaseReady] = useState(false);
-  // useEffect(() => {
-  //   firebase.auth().onAuthStateChanged((u) => {
-  //     setIsFirebaseReady(true);
-  //   });
-  // }, []);
 
   const login = (userObject) => {
     return fetch(`${apiUrl}/api/userprofile/getbyemail?email=${userObject.email}`)
     .then((r) => r.json())
       .then((userProfile) => {
-        sessionStorage.setItem("userProfile", JSON.stringify(userProfile));
-        setIsLoggedIn(true);
+        if(userProfile.id){
+          sessionStorage.setItem("userProfile", JSON.stringify(userProfile));
+          setIsLoggedIn(true);
+          return userProfile
+        }
+        else{
+          return undefined
+        }
       });
   };
 

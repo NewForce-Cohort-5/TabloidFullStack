@@ -13,8 +13,14 @@ export default function Login() {
   const loginSubmit = (e) => {
     e.preventDefault();
     login({email, password})
-      .then(() => navigate("/"))
-      .catch(() => alert("Invalid email or password"));
+      .then(r =>{
+      if(r){
+      navigate("/")
+      }
+      else{
+        alert("Invalid email or password")
+      }
+    })
   };
 
   return (
@@ -32,7 +38,7 @@ export default function Login() {
           <Button>Login</Button>
         </FormGroup>
         <em>
-          Not registered? <Link to="register">Register</Link>
+          Not registered? <Link to="/register">Register</Link>
         </em>
       </fieldset>
     </Form>
