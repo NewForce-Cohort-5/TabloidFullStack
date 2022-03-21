@@ -19,5 +19,5 @@ namespace Tabloid.Repositories
                 return new SqlConnection(_connectionString);
             }
         }
-    }
+    } 
 }

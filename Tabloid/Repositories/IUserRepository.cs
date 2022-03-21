@@ -2,9 +2,9 @@
 
 namespace Tabloid.Repositories
 {
-    public interface IUserProfileRepository
+    public interface IUserRepository
     {
         void Add(UserProfile userProfile);
-        UserProfile GetByFirebaseUserId(string firebaseUserId);
+        UserProfile GetByEmail(string email);
     }
 }
