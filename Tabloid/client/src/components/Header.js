@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { NavLink as RRNavLink } from "react-router-dom";
+import { logout } from '../Managers/UserProfileManager';
 import {
   Collapse,
   Navbar,
@@ -9,10 +10,8 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
-import { UserProfileContext } from "../providers/UserProfileProvider";
 
-export default function Header() {
-  const { isLoggedIn, logout } = useContext(UserProfileContext);
+export default function Header({isLoggedIn, setIsLoggedIn}) {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
@@ -35,7 +34,10 @@ export default function Header() {
               <>
                 <NavItem>
                   <a aria-current="page" className="nav-link"
-                    style={{ cursor: "pointer" }} onClick={logout}>Logout</a>
+                    style={{ cursor: "pointer" }} onClick={() => {
+                      logout()
+                      setIsLoggedIn(false)
+                    }}>Logout</a>
                 </NavItem>
               </>
             }

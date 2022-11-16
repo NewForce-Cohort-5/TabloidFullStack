@@ -1,11 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useNavigate, Link } from "react-router-dom";
-import { UserProfileContext } from "../providers/UserProfileProvider";
+import { login } from "../Managers/UserProfileManager";
 
-export default function Login() {
+export default function Login({setIsLoggedIn}) {
   const navigate = useNavigate();
-  const { login } = useContext(UserProfileContext);
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -15,7 +14,8 @@ export default function Login() {
     login({email, password})
       .then(r =>{
       if(r){
-      navigate("/")
+      setIsLoggedIn(true)
+      navigate('/')
       }
       else{
         alert("Invalid email or password")

@@ -1,11 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState} from "react";
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useNavigate } from "react-router-dom";
-import { UserProfileContext } from "../providers/UserProfileProvider";
+import { register } from "../Managers/UserProfileManager";
 
-export default function Register() {
+
+export default function Register({setIsLoggedIn}) {
   const navigate = useNavigate();
-  const { register } = useContext(UserProfileContext);
 
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
@@ -22,7 +22,10 @@ export default function Register() {
     } else {
       const userProfile = { firstName, lastName, displayName, imageLocation, email };
       register(userProfile, password)
-        .then(() => navigate("/"));
+        .then(() => {
+          setIsLoggedIn(true)
+          navigate('/')
+        });
     }
  };
 
