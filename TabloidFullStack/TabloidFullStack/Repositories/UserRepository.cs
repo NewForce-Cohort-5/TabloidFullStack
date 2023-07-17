@@ -32,7 +32,6 @@ namespace TabloidFullStack.Repositories
                         userProfile = new UserProfile()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            //FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
                             FirstName = DbUtils.GetString(reader, "FirstName"),
                             LastName = DbUtils.GetString(reader, "LastName"),
                             DisplayName = DbUtils.GetString(reader, "DisplayName"),
@@ -66,7 +65,6 @@ namespace TabloidFullStack.Repositories
                                         OUTPUT INSERTED.ID
                                         VALUES (@FirstName, @LastName, @DisplayName, 
                                                 @Email, @CreateDateTime, @ImageLocation, @UserTypeId)";
-                    //DbUtils.AddParameter(cmd, "@FirebaseUserId", userProfile.FirebaseUserId);
                     DbUtils.AddParameter(cmd, "@FirstName", userProfile.FirstName);
                     DbUtils.AddParameter(cmd, "@LastName", userProfile.LastName);
                     DbUtils.AddParameter(cmd, "@DisplayName", userProfile.DisplayName);
